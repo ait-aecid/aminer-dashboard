@@ -1,5 +1,6 @@
 ---
 # Kafka/zookeper vars
+kafka_base_url: http://www-eu.apache.org/dist/kafka
 kafka_version: 2.5.0
 kafka_scala_version: 2.12
 

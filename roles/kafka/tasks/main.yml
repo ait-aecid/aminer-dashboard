@@ -7,7 +7,7 @@
   
 - name: Download kafka
   get_url:
-    url: http://www-eu.apache.org/dist/kafka/{{ kafka_version }}/kafka_{{ kafka_scala_version }}-{{ kafka_version }}.tgz
+    url: "{{ kafka_base_url }}/{{ kafka_version }}/kafka_{{ kafka_scala_version }}-{{ kafka_version }}.tgz"
     dest: /tmp
   when: not dir.stat.exists
   tags:
