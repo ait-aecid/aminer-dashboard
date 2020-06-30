@@ -1,0 +1,12 @@
+---
+- name: Install ELK stack and kafka
+  hosts: all
+  become: yes
+  become_method: sudo
+  become_user: root
+  roles:
+    - elasticsearch
+    - kibana
+    - logstash
+    - kafka
+

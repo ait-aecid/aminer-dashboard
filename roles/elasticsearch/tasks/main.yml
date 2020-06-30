@@ -1,0 +1,41 @@
+# Gather rpm package facts
+- name: Gather rpm package facts
+  package_facts:
+    manager: auto
+    
+# Install apt-transport-https
+- name: Install apt-transport-https to support https APT downloads
+  apt:
+    name: apt-transport-https
+    state: present
+  when: "'apt-transport-https' not in ansible_facts.packages"
+
+  
+# Add elastic apt key
+- name: Add Elasticsearch apt key
+  apt_key:
+    url: "{{ elastic_key_url }}"
+    state: present
+    
+# Add elastic repo
+- name: Add Elasticsearch repo
+  apt_repository:
+    repo: "{{ elastic_repo }}"
+    state: present
+
+## Elasticsearch
+
+# Install elasticsearch
+- name: Install Elasticsearch
+  apt:
+    name: elasticsearch
+    update_cache: yes
+  when: "'elasticsearch' not in ansible_facts.packages"
+
+# Start elasticsearch
+- name: Start Elasticsearch
+  service:
+    name: elasticsearch
+    state: started
+    enabled: true
+

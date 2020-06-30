@@ -1,0 +1,24 @@
+---
+
+- name: restart kafka service
+  service:
+    name: kafka
+    state: restarted
+
+- name: restart kafka systemd
+  systemd:
+    name: kafka
+    state: restarted
+    daemon_reload: yes
+    
+    
+- name: restart zookeper service
+  service:
+    name: zookeper
+    state: restarted
+
+- name: restart zookeper systemd
+  systemd:
+    name: zookeper
+    state: restarted
+    daemon_reload: yes

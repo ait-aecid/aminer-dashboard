@@ -1,0 +1,36 @@
+# Gather rpm package facts
+- name: Gather rpm package facts
+  package_facts:
+    manager: auto
+
+# Install Java
+- name: Install Java
+  apt: 
+    name: default-jre
+    update_cache: yes
+  when: "'default-jre' not in ansible_facts.packages"
+
+# Install Logstash
+- name: Install logstash
+  apt:
+    name: logstash
+    update_cache: yes
+  when: "'logstash' not in ansible_facts.packages"
+  
+# Start logstash
+- name: Start logstash
+  service:
+    name: logstash
+    state: started
+    enabled: true
+    
+# Configure logstash
+- name: Create logstash configuration file
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/logstash/conf.d/{{ item }}"
+  with_items:
+    - logstash.conf
+  notify: restart logstash
+  
+  
