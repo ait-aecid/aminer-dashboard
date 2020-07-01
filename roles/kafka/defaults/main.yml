@@ -8,7 +8,7 @@ kafka_root_dir: /etc
 kafka_dir: "{{ kafka_root_dir }}/kafka"
 
 kafka_listener_protocol: PLAINTEXT
-kafka_listener_hostname: localhost # set own hostname
+kafka_listener_hostname: localhost
 kafka_listener_port: 9092
 
 systemd_path: /etc/systemd/system

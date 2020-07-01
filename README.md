@@ -50,12 +50,13 @@ elasticsearch_host: "http://localhost:9200"
 
 ### Kafka
 ```
+kafka_base_url: http://www-eu.apache.org/dist/kafka
 kafka_version: 2.5.0
 kafka_scala_version: 2.12
 kafka_root_dir: /etc
 kafka_dir: "{{ kafka_root_dir }}/kafka"
 kafka_listener_protocol: PLAINTEXT
-kafka_listener_hostname: "listener_hostname/ip"
+kafka_listener_hostname: "localhost"
 kafka_listener_port: 9092
 systemd_path: /etc/systemd/system
 ```
@@ -67,7 +68,7 @@ systemd_path: /etc/systemd/system
 Kibana server IP and port are configured in *kibana/defaults/main.yml* as follows:
 
 ```
-kibana_server_ip: 'your_ip'
+kibana_server_ip: "localhost"
 kibana_server_port: 5601
 ```
 
@@ -122,6 +123,6 @@ Index configuration can be accessed in **Management > Index Patterns**.
 
 ## AMiner dashboard
 
-The AMiner dashboard and its consisting visualizations can be imported via ansible or by importing the **.ndjson** file found in **roles/kibana/dashboards/** directly to Kibana. The import functionality is located at **Management > Saved Objects**.
+The AMiner dashboard and its consisting visualizations and indices can be imported via ansible or by importing the **.ndjson** file found in **roles/kibana/dashboards/** directly to Kibana. The import functionality is located at **Management > Saved Objects**.
 
-The AMiner dashboard can then be accessed in the *Dashboard* section of Kibana.
+The AMiner dashboard can then be accessed in the *Dashboard* section of Kibana. Its visualizations can be edited separately in the *Visualize* section.
