@@ -1,0 +1,50 @@
+input {
+  kafka {
+    bootstrap_servers => "{{ kafka_server_ip }}:{{ kafka_server_port }}"
+    topics => "{{ kafka_topics }}" 
+    codec => "json"
+  }
+    
+  beats {
+    port => {{ input_beats_port }}
+  }
+}
+
+filter {
+  if [LogData] {
+    date {
+       match => [ "[LogData][Timestamps][0]", "UNIX" ]
+       target => "@logtimestamp"
+    }  
+  }
+ 
+  if [FromTime] {
+  date {
+       match => [ "[FromTime]", "UNIX" ]
+       target => "@fromtimestamp"
+   }
+  }
+ 
+  if [ToTime] {
+  date {
+       match => [ "[ToTime]", "UNIX" ]
+       target => "@totimestamp"
+   }
+  }
+}
+
+output {
+  if [AnalysisComponent] {
+    elasticsearch {
+      hosts => {{ elasticsearch_host }}
+      index => "aminer-anomaly-%{+YYYY.MM.dd}"
+    }
+  }
+  
+  if [StatusInfo] {
+    elasticsearch {
+      hosts => {{ elasticsearch_host }}
+      index => "aminer-statusinfo-%{+YYYY.MM.dd}"
+    }
+  }
+}

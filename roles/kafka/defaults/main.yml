@@ -1,0 +1,14 @@
+---
+# Kafka/zookeper vars
+kafka_base_url: http://www-eu.apache.org/dist/kafka
+kafka_version: 2.5.0
+kafka_scala_version: 2.12
+
+kafka_root_dir: /etc
+kafka_dir: "{{ kafka_root_dir }}/kafka"
+
+kafka_listener_protocol: PLAINTEXT
+kafka_listener_hostname: localhost
+kafka_listener_port: 9092
+
+systemd_path: /etc/systemd/system

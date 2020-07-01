@@ -1,0 +1,65 @@
+# Gather rpm package facts
+- name: Gather rpm package facts
+  package_facts:
+    manager: auto
+   
+# Install Kibana 
+- name: Install Kibana
+  apt:
+    name: kibana
+    update_cache: yes
+  when: "'kibana' not in ansible_facts.packages"
+
+# Configure Kibana
+- name: Update kibana server ip
+  lineinfile:
+    destfile: /etc/kibana/kibana.yml
+    regexp: 'server.host:'
+    line: 'server.host: {{ kibana_server_ip }}'
+
+- name: Update kibana server port
+  lineinfile:
+    destfile: /etc/kibana/kibana.yml
+    regexp: 'server.port:'
+    line: 'server.port: {{ kibana_server_port }}'
+
+# Start Kibana
+- name: Start Kibana
+  service:
+    name: kibana
+    state: started	
+    enabled: true
+
+
+## Import aminer dashboard into kibana via API
+
+# Copy aminer dashboard
+- name: Copy dashboard file
+  copy:
+    src: '{{ dashboard_path }}'
+    dest: /home/
+
+# Import dashboard to kibana with curl
+- name: Import dashboard with curl
+  shell: 'curl -X POST "{{ kibana_server_ip }}:{{ kibana_server_port }}/api/saved_objects/_import" -H "Content-Type: multipart/form-data" -H "kbn-xsrf: true" --form file=@/home/{{ dashboard_name }}'
+
+# Delete dashboard file after import
+- name: Remove dashboard file
+  file:
+    path: /home/{{ dashboard_name }}
+    state: absent
+    
+        
+#- name: "Import aminer dashboard "
+#  uri: 
+#    url: http://{{ kibana_server_ip }}:{{ kibana_server_port }}/api/kibana/dashboards/import
+#    method: POST
+#    return_content: yes
+#    user: "kibana"
+#    password: "kibana"
+#    force_basic_auth: yes
+#    body: "{{ dashboard_file }}"
+#    body_format: json
+#    headers:
+#      Content-Type: "application/json"
+#      kbn-xsrf: true
