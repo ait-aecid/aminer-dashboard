@@ -126,3 +126,6 @@ Index configuration can be accessed in **Management > Index Patterns**.
 The AMiner dashboard and its consisting visualizations and indices can be imported via ansible or by importing the **.ndjson** file found in **roles/kibana/dashboards/** directly to Kibana. The import functionality is located at **Management > Saved Objects**.
 
 The AMiner dashboard can then be accessed in the *Dashboard* section of Kibana. Its visualizations can be edited separately in the *Visualize* section.
+
+Within a dashboard, it is possible to apply different time ranges to different visualizations by clicking in the so-called meatballs menu and selecting **Customize time range**.
+
