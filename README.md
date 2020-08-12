@@ -127,5 +127,5 @@ The AMiner dashboard and its consisting visualizations and indices can be import
 
 The AMiner dashboard can then be accessed in the *Dashboard* section of Kibana. Its visualizations can be edited separately in the *Visualize* section.
 
-Within a dashboard, it is possible to apply different time ranges to different visualizations by clicking in the so-called meatballs menu and selecting **Customize time range**.
+Within a dashboard, it is possible to apply different time ranges to different visualizations by clicking the so-called meatballs menu and selecting **Customize time range**.
 
