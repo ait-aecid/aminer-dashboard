@@ -121,6 +121,11 @@ To access AMiner anomalies saved in *elasticsearch* indices must be created. The
 
 Index configuration can be accessed in **Management > Index Patterns**.
 
+## Adding new fields to StatusInfo chart
+
+Currently, the status info chart shows values from the following fields: model_type, status_code, classification, event_type_str, host, php, and sp. To add new ones, go to the *Visualize* page and click on **[AMiner] - StatusInfo**. This visualization is of type TSVB, and it includes different visualization options. In the *Timeseries* tab, inside the *data* panel, click on the plus sign next to the trash sign to add a new field. To be shown correctly together with the already defined fields, configure its metric as follows:
+Aggregation=Sum, Field={desired_field}, GroupBy=Everything.
+
 ## AMiner dashboard
 
 The AMiner dashboard and its consisting visualizations and indices can be imported via ansible or by importing the **.ndjson** file found in **roles/kibana/dashboards/** directly to Kibana. The import functionality is located at **Management > Saved Objects**.
