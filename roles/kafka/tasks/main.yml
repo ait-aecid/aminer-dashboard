@@ -1,4 +1,4 @@
-# Install kafka/zookeper
+# Install kafka/zookeeper
 
 - name: Check if Kafka has already been downloaded and unpacked
   stat:
@@ -12,7 +12,12 @@
   when: not dir.stat.exists
   tags:
     - kafka_download
-    
+
+- name: Create kafka directory
+  file:
+    path: "{{ kafka_dir }}"
+    state: directory
+
 - name: Unpack kafka
   unarchive:
     src: /tmp/kafka_{{ kafka_scala_version }}-{{ kafka_version }}.tgz
@@ -22,10 +27,6 @@
   tags:
     - kafka_unpack
     
-- name: Rename unpacked folder to kafka (without the version)
-  command: "mv {{ kafka_root_dir }}/kafka_{{ kafka_scala_version }}-{{ kafka_version }} {{ kafka_dir }}"
-  when: not dir.stat.exists
-  
 - name: Delete kafka archive file
   file:
     path: /tmp/kafka_{{ kafka_scala_version }}-{{ kafka_version }}.tgz
@@ -43,24 +44,24 @@
     line: 'listeners={{ kafka_listener_protocol }}://{{ kafka_listener_hostname }}:{{ kafka_listener_port }}'
 
 
-# Setup kafka/zookeper service
+# Setup kafka/zookeeper service
 
-- name: Setup zookeper systemd service file
+- name: Setup zookeeper systemd service file
   template:
-    src: zookeper.service.j2
-    dest: "{{ systemd_path }}/zookeper.service"
+    src: zookeeper.service.j2
+    dest: "{{ systemd_path }}/zookeeper.service"
   notify:
-    - restart zookeper systemd
+    - restart zookeeper systemd
   tags:
-    - zookeper_service
+    - zookeeper_service
 
-- name: Start the zookeper service
+- name: Start the zookeeper service
   service:
-    name: zookeper
+    name: zookeeper
     state: started
     enabled: yes
   tags:
-    - zookeper_service
+    - zookeeper_service
     
 - name: Setup kafka systemd service file
   template:
