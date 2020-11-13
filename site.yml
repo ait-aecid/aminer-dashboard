@@ -6,7 +6,7 @@
   become_user: root
   roles:
     - elasticsearch
-    - kibana
-    - logstash
     - kafka
+    - logstash
+    - kibana
 

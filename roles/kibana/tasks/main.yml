@@ -23,13 +23,12 @@
     regexp: 'server.port:'
     line: 'server.port: {{ kibana_server_port }}'
 
-# Start Kibana
+## Start Kibana
 - name: Start Kibana
   service:
     name: kibana
-    state: started	
+    state: started
     enabled: true
-
 
 ## Import aminer dashboard into kibana via API
 

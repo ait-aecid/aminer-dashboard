@@ -12,13 +12,13 @@
     daemon_reload: yes
     
     
-- name: restart zookeper service
+- name: restart zookeeper service
   service:
-    name: zookeper
+    name: zookeeper
     state: restarted
 
-- name: restart zookeper systemd
+- name: restart zookeeper systemd
   systemd:
-    name: zookeper
+    name: zookeeper
     state: restarted
     daemon_reload: yes

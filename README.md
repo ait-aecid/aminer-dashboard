@@ -20,6 +20,8 @@ The following roles can be found in the *roles* folder:
 Each of the roles consists of their own variables (found in the defaults folder), handlers, templates and most importantly their tasks.
 Variables that can be used by more than one of the roles are defined in the *group_vars* folder.
 
+Note: It is desirable that the *elasticsearch* role be installed first, since it adds the necessary repositories for the whole ELK stack.
+
 ## Defaults
 
 ### Elasticsearch
@@ -121,6 +123,11 @@ To access AMiner anomalies saved in *elasticsearch* indices must be created. The
 
 Index configuration can be accessed in **Management > Index Patterns**.
 
+## Adding new fields to StatusInfo chart
+
+Currently, the status info chart shows values from the following fields: model_type, status_code, classification, event_type_str, host, php, and sp. To add new ones, go to the *Visualize* page and click on **[AMiner] - StatusInfo**. This visualization is of type TSVB, and it includes different visualization options. In the *Timeseries* tab, inside the *data* panel, click on the plus sign next to the trash sign to add a new field. To be shown correctly together with the already defined fields, configure its metric as follows:
+Aggregation=Sum, Field={desired_field}, GroupBy=Everything.
+
 ## AMiner dashboard
 
 The AMiner dashboard and its consisting visualizations and indices can be imported via ansible or by importing the **.ndjson** file found in **roles/kibana/dashboards/** directly to Kibana. The import functionality is located at **Management > Saved Objects**.
@@ -128,4 +135,48 @@ The AMiner dashboard and its consisting visualizations and indices can be import
 The AMiner dashboard can then be accessed in the *Dashboard* section of Kibana. Its visualizations can be edited separately in the *Visualize* section.
 
 Within a dashboard, it is possible to apply different time ranges to different visualizations by clicking the so-called meatballs menu and selecting **Customize time range**.
+
+
+# Configuration of Kafka and ELK stack
+
+## Kafka
+
+To setup the server IP of the kafka server, go to: 
+> roles > kafka > defaults > main.yml
+
+Among others, there you can specify the protocol, hostname, and the port of the server. By default, the value of the hostname (IP) is "localhost".
+
+If manual configuration is desired, go to:
+> {{ kafka_dir }}/config/server.properties
+
+Variable {{ kafka_dir }} is configured too in the ansible kafka role (default=/etc/kafka).
+
+## Logstash
+
+Just like with kafka, the main configuration variables can be found under the *logstash role*. There you can specify the following:
+
+- kafka_server_ip: "localhost"
+- kafka_server_port: 9092
+- kafka_topics: "aminer" 
+- input_beats_port: 5044
+- elasticsearch_host: "http://localhost:9200"
+
+The values provided here are defaults. Change them according to your needs. The logstash configuration file in the host can be found under:
+> /etc/logstash/conf.d/logstash.conf
+
+## Elasticsearch
+
+No configuration is necessary, provided the kafka and kibana instances are installed in the same host as the elasticsearch instance. Otherwise, configure the elastic search network IP(s) under:
+> /etc/elasticsearch/elasticsearch.yml
+
+Note that you need root permissions to modify the file.
+
+## Kibana
+
+Under the ansible role *kibana*, the most important configuration variables are:
+
+- Kibana server IP
+- Kibana server port
+- AMiner dashboard name (saved in folder *Dashboards*)
+
 
