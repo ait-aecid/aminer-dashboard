@@ -103,7 +103,7 @@ To create the *kafka.service* file (same applies to *zookeeper*) we use template
 ```
 
 
-## Two notes
+## Notes
  
 > The _elastic_key_url_ and _elastic_repo_ can be found in the defaults folder of _elasticsearch_. In case you do not include the elasticsearch role in the *site.yml*, i.e. if you only want to install the other roles, make sure the _elastic key_ and _repo_ are already present in your machine. In this case, they are added via the elasticsearch role, namely in the first four tasks.
 
@@ -127,6 +127,9 @@ Index configuration can be accessed in **Management > Index Patterns**.
 
 Currently, the status info chart shows values from the following fields: model_type, status_code, classification, event_type_str, host, php, and sp. To add new ones, go to the *Visualize* page and click on **[AMiner] - StatusInfo**. This visualization is of type TSVB, and it includes different visualization options. In the *Timeseries* tab, inside the *data* panel, click on the plus sign next to the trash sign to add a new field. To be shown correctly together with the already defined fields, configure its metric as follows:
 Aggregation=Sum, Field={desired_field}, GroupBy=Everything.
+
+Note that for values under 1 the log scaled StatusInfo chart does not show anything, since the log of 0 is undefined. In this case, assume the value is 0.
+
 
 ## AMiner dashboard
 
@@ -178,5 +181,4 @@ Under the ansible role *kibana*, the most important configuration variables are:
 - Kibana server IP
 - Kibana server port
 - AMiner dashboard name (saved in folder *Dashboards*)
-
 
