@@ -4,10 +4,10 @@
     manager: auto
    
 # Install Kibana 
-- name: Install Kibana
+- name: Install Kibana {{ kibana_version }}
   apt:
-    name: kibana
-    update_cache: yes
+    name: "kibana={{ kibana_version }}"
+    update_cache: no
   when: "'kibana' not in ansible_facts.packages"
 
 # Configure Kibana

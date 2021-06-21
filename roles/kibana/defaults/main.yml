@@ -1,5 +1,6 @@
 ---
 # Kibana vars
+kibana_version: "7.10.2"
 kibana_server_ip: "localhost"
 kibana_server_port: 5601
 kibana_user: "kibana"
