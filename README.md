@@ -5,7 +5,7 @@
 
 ## Installation
 
-To install the stack, run: ``ansible-playbook site.yml``
+To install the stack, run: ``ansible-playbook site.yml -i hosts``
 
 The *site.yml* contains the main configuration regarding the roles that are to be installed to the specified hosts.
 
