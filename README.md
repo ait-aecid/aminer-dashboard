@@ -24,6 +24,14 @@ Note: It is desirable that the *elasticsearch* role be installed first, since it
 
 ## Defaults
 
+### Common variables
+
+Variables accessed from all roles can be defined in `group_vars`.
+
+```
+es_version: 7.10.2 # version of ELK stack to be installed. For AMiner CTI dashboard to work, versions 7.10.x are recommended to be installed.
+```
+
 ### Elasticsearch
 ```
 elastic_key_url: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
@@ -68,10 +76,9 @@ systemd_path: /etc/systemd/system
 
 ### Variables
 
-Kibana version, server IP, and port are configured in *kibana/defaults/main.yml* as follows:
+Server IP and port are configured in *kibana/defaults/main.yml* as follows:
 
 ```
-kibana_version: 7.10.2
 kibana_server_ip: "localhost"
 kibana_server_port: 5601
 ```

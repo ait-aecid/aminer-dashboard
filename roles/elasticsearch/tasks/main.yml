@@ -26,9 +26,9 @@
 ## Elasticsearch
 
 # Install elasticsearch
-- name: Install Elasticsearch
+- name: Install Elasticsearch {{ es_version }}
   apt:
-    name: elasticsearch
+    name: "elasticsearch={{ es_version }}"
     update_cache: yes
   when: "'elasticsearch' not in ansible_facts.packages"
 
