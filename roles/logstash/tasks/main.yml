@@ -11,9 +11,9 @@
   when: "'default-jre' not in ansible_facts.packages"
 
 # Install Logstash
-- name: Install logstash
+- name: Install logstash {{ es_version }}
   apt:
-    name: logstash
+    name: "logstash={{ es_version }}"
     update_cache: yes
   when: "'logstash' not in ansible_facts.packages"
   

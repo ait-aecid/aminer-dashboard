@@ -48,7 +48,7 @@
 
 - name: Setup zookeeper systemd service file
   template:
-    src: zookeeper.service.j2
+    src: "zookeeper.service.j2"
     dest: "{{ systemd_path }}/zookeeper.service"
   notify:
     - restart zookeeper systemd
@@ -65,7 +65,7 @@
     
 - name: Setup kafka systemd service file
   template:
-    src: kafka.service.j2
+    src: "kafka.service.j2"
     dest: "{{ systemd_path }}/kafka.service"
   notify:
     - restart kafka systemd
